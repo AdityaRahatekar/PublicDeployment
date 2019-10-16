@@ -222,8 +222,6 @@ function writeShit(){
   fill(247, 247, 255);
   textSize(20);
   noStroke();
-  //text(" \tPress P key to play the game yourself \t\t\t\t\t\t\t\t ",250,620 );
-  
   textSize(36);
   if(winCounter > 0){
 
@@ -238,8 +236,9 @@ function writeShit(){
     }
     textSize(100);
     stroke(0);
-
-    text("WOOOOOOOOOOOOoooo", 110,400);
+	document.getElementById('display-area').innerText
+    text("WOW, you have completed the task in "+document.getElementById('display-area').innerText, 110,400);
+	
     winCounter --;
     if(winCounter % 10 ==0){
 
@@ -268,6 +267,7 @@ function keyPressed(){
     switch(keyCode) {
     case UP_ARROW:
       up = true;
+	  
       break;
     case DOWN_ARROW:
       down = true;
@@ -278,6 +278,7 @@ function keyPressed(){
     case LEFT_ARROW:
       left = true;
       break;
+	  
     }
     switch(key){
       case 'W':
@@ -292,8 +293,10 @@ function keyPressed(){
       case 'A':
         left = true;
         break;
+		
     }
     setPlayerVelocity();
+	start(); //start timer as soon as any key is pressed
   }
   
   else{//if human is not playing
@@ -398,6 +401,65 @@ function setPlayerVelocity(){
   }
 
 }
+//----------------------------------------------Timer-settings-----------------------------------------------------------------------
+
+var timeBegan = null
+    , timeStopped = null
+    , stoppedDuration = 0
+    , started = null;
+
+function start() {
+
+if (timeBegan === null) {
+    timeBegan = new Date();
+}else {
+    clearInterval(started);
+};
+
+if (timeStopped !== null) {
+    stoppedDuration += (new Date() - timeStopped);
+};
+
+if (stoppedDuration < 1000){
+    console.log(stoppedDuration+' ms');
+};
+
+if (stoppedDuration > 1000){
+    console.log(stoppedDuration/1000+' seconds');
+};
+
+started = setInterval(clockRunning, 10);
+
+return stoppedDuration  }
+
+function stop() {
+    timeStopped = new Date();
+    clearInterval(started);
+}
+function clockRunning(){
+    var currentTime = new Date()
+        , timeElapsed = new Date(currentTime - timeBegan - stoppedDuration)
+        , hour = timeElapsed.getUTCHours()
+        , min = timeElapsed.getUTCMinutes()
+        , sec = timeElapsed.getUTCSeconds()
+        , ms = timeElapsed.getUTCMilliseconds();
+
+    document.getElementById("display-area").innerHTML = 
+        (hour > 9 ? hour : "0" + hour) + ":" + 
+        (min > 9 ? min : "0" + min) + ":" + 
+        (sec > 9 ? sec : "0" + sec) + "." + 
+        (ms > 99 ? ms : ms > 9 ? "0" + ms : "00" + ms);
+};
+
+function reset() {
+    clearInterval(started);
+    stoppedDuration = 0;
+    timeBegan = null;
+    timeStopped = null;
+	document.getElementById("display-area").innerHTML = "00:00:00.000";
+}
+
+
 //---------------------------------------------------------------------------------------------------------------------
 function htmlStuff(){
   createElement("h2", "Change Values")

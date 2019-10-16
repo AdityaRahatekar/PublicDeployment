@@ -237,9 +237,10 @@ function writeShit(){
     textSize(100);
     stroke(0);
 	document.getElementById('display-area').innerText
-    text("WOW, you have completed the task in "+document.getElementById('display-area').innerText, 110,400);
+    text("WOW, you have completed the task in "+document.getElementById('display-area').innerText, 110,100);
 	
     winCounter --;
+	  winCounter++;
     if(winCounter % 10 ==0){
 
       //flip = !flip;

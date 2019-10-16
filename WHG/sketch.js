@@ -402,6 +402,7 @@ function setPlayerVelocity(){
 
 }
 //----------------------------------------------Timer-settings-----------------------------------------------------------------------
+
 var timeBegan = null
     , timeStopped = null
     , stoppedDuration = 0
